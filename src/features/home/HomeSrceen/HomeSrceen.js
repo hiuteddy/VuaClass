@@ -139,7 +139,7 @@ const documentsData = [
   },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <Banner />
@@ -148,11 +148,13 @@ const HomeScreen = () => {
       {/* In ra dữ liệu để kiểm tra */}
 
       <FeaturedCard
+        navigation={navigation}
         title={'Đề thi Ielts nổi bật'}
         data={mockData} // Truyền dữ liệu đúng
         horizontal={true}
       />
       <FeaturedCard
+        navigation={navigation}
         title={'Đề thi Ielts nổi bật'}
         data={mockData1} // Truyền dữ liệu đúng
         horizontal={true}
@@ -169,10 +171,8 @@ const HomeScreen = () => {
         horizontal={true}
         showIcons={false} // Không hiển thị icon
       />
-      <MembershipCard
-     data={memberData}
-     titleHeader ={"goi membership"}      />
-      <RegisterForm/>
+      <MembershipCard data={memberData} titleHeader={'goi membership'} />
+      <RegisterForm />
     </ScrollView>
   );
 };

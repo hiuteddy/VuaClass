@@ -8,10 +8,29 @@ import {
   FlatList,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useRoute} from '@react-navigation/native';
 
-const FeaturedCard = ({title, data, horizontal}) => {
+const FeaturedCard = ({title, data, horizontal, navigation}) => {
+  const currentRoute = useRoute(); // Lấy thông tin route hiện tại
   const backgroundColors = ['#FFD700', '#FF6347', '#32CD32', '#87CEEB'];
+  // Map route names to display names
+  const routeNameMap = {
+    HomeScreen: 'Trang chủ',
+    NotificationScreen: 'Thông báo',
+    ProfileScreen: 'Hồ sơ',
+    ClassSrceen: 'Lớp học',
 
+    // Thêm các route khác tại đây
+  };
+
+  const displayRouteName = routeNameMap[currentRoute.name] || currentRoute.name;
+
+  const handleDetailPress = item => {
+    navigation.navigate('ExamDetailScreen', {
+      item,
+      routeName: displayRouteName, // Truyền tên hiển thị
+    });
+  };
   return (
     <View style={styles.featuredCard}>
       <View style={styles.header}>
@@ -93,7 +112,9 @@ const FeaturedCard = ({title, data, horizontal}) => {
                   {item.isPaid ? 'Trả phí' : 'Miễn phí'}
                 </Text>
               </View>
-              <TouchableOpacity style={styles.detailButton}>
+              <TouchableOpacity
+                onPress={() => handleDetailPress(item)}
+                style={styles.detailButton}>
                 <Text style={styles.detailText}>Xem chi tiết</Text>
               </TouchableOpacity>
             </View>
