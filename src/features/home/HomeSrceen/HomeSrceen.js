@@ -160,16 +160,24 @@ const HomeScreen = ({navigation}) => {
         horizontal={true}
       />
       <Documents
+        navigation={navigation}
         title={'Tài liệu nổi bật'}
         data={documentsData} // Truyền dữ liệu đúng
         horizontal={true}
         showIcons={true} // Không hiển thị icon
+        iconName="chevron-right"
+        viewAll={'Tất cả'}
+        iconColor="#034567" // Màu icon
       />
       <Documents
+        navigation={navigation}
         title={'Tài liệu nổi bật'}
         data={documentsData} // Truyền dữ liệu đúng
         horizontal={true}
-        showIcons={false} // Không hiển thị icon
+        showIcons={true} // Không hiển thị icon
+        iconName="chevron-right"
+        viewAll={'Tất cả'}
+        iconColor="#034567" // Màu icon
       />
       <MembershipCard data={memberData} titleHeader={'goi membership'} />
       <RegisterForm />

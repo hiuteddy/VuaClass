@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
 const FeaturedCard = ({title, data, horizontal, navigation}) => {
   const currentRoute = useRoute(); // Lấy thông tin route hiện tại
@@ -30,6 +30,10 @@ const FeaturedCard = ({title, data, horizontal, navigation}) => {
       item,
       routeName: displayRouteName, // Truyền tên hiển thị
     });
+  };
+
+  const handleAllPress = () => {
+    // navigation.navigate(navigateTo);
   };
   return (
     <View style={styles.featuredCard}>
@@ -127,7 +131,7 @@ const FeaturedCard = ({title, data, horizontal, navigation}) => {
 
 const styles = StyleSheet.create({
   featuredCard: {
-    marginHorizontal: 15,
+    paddingHorizontal: 15,
   },
   header: {
     flexDirection: 'row',

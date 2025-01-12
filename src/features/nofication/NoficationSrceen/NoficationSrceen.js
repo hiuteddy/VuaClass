@@ -66,7 +66,7 @@ const NoficationSrceen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#ffffffff',
   },
   text: {
     color: '#034567',
