@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 
-const Header = ({onSearchPress, onAvatarPress, onLogoPress}) => {
+const Header = ({navigation,onSearchPress, onAvatarPress, onLogoPress}) => {
   return (
     <View style={styles.headerContainer}>
       {/* Logo phần trái */}

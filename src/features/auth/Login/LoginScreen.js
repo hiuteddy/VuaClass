@@ -20,21 +20,23 @@ const LoginScreen = ({navigation}) => {
     if (!email || !password) {
       Alert.alert('Lỗi', 'Vui lòng nhập đầy đủ thông tin đăng nhập.');
       return;
-    }else{
-      navigation.replace('Main');
-
+    } else {
+      // Mock item object to pass to AccountScreen
+      const item = { title: 'Main', email: email }; // Example item
+      navigation.replace('Main', { item, routeName: 'Main' }); // Pass item to AccountScreen
     }
-  
   };
+
   const handleRegistered = () => {
     navigation.replace('Register');
   };
+
   const handleForgot = () => {
     navigation.replace('ForgotPassword');
   };
+
   return (
     <View style={styles.container}>
-
       <Text style={styles.heading}>ĐĂNG NHẬP</Text>
       <Input
         label="Email"
@@ -63,11 +65,7 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.orText}>Hoặc đăng nhập bằng</Text>
       <View style={styles.row}>
         <TouchableOpacity
-          style={[
-            styles.socialButton,
-            styles.socialButtonFacebookandGoogle,
-            {marginRight: 15},
-          ]}>
+          style={[styles.socialButton, styles.socialButtonFacebookandGoogle, {marginRight: 15}]}>
           <Image
             source={require('../../../assets/icons/icon_Google.png')}
             style={styles.socialIcon}
@@ -146,11 +144,11 @@ const styles = StyleSheet.create({
   rowtext: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Căn giữa theo chiều ngang
-    position: 'absolute', // Cố định vị trí
-    bottom: 40, // Cách lề dưới 40px
-    left: 0, // Đảm bảo chiếm toàn chiều ngang
-    right: 0, // Đảm bảo chiếm toàn chiều ngang
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 40,
+    left: 0,
+    right: 0,
   },
   socialButton: {
     flexDirection: 'row',
@@ -165,11 +163,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   socialButtonFacebookandGoogle: {
-    shadowColor: '#000', // Màu bóng đổ
-    shadowOffset: {width: 0, height: 0}, // Tọa độ bóng đổ
-    shadowOpacity: 0.1, // Độ mờ của bóng
-    shadowRadius: 10, // Bán kính bóng
-    elevation: 5, // Đổ bóng cho Android
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
   },
   socialIcon: {
     width: 20,
