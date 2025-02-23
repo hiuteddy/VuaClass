@@ -1,7 +1,13 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 
-const Button_Account = ({ onPress, text }) => {
+const Button_Account = ({onPress, text}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
@@ -21,13 +27,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8, // Thêm bo góc nếu muốn
-    margin:10
+    marginVertical: 15,
   },
   text: {
     color: '#FFFFFF', // Đặt màu chữ
     fontSize: 16, // Kích thước chữ
-     // Đặt chữ đậm nếu cần
+    // Đặt chữ đậm nếu cần
     textAlign: 'center', // Căn giữa văn bản
-    fontFamily:'Roboto-Medium'
+    fontFamily: 'Roboto-Medium',
   },
 });

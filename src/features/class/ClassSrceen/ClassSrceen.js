@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import CourseCard from '../components/CourseCard';
 import {useNavigation} from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
 const courses = [
   {
@@ -46,35 +40,24 @@ const courses = [
   },
 ];
 
-const ClassScreen = () => {
+const ClassScreen = route => {
   const navigation = useNavigation();
-
+  const breadcrumbs = [
+    {
+      name: 'Trang chủ', // Tên lớp lấy từ route.params
+      icon: 'home',
+    },
+    {
+      name: 'Lớp học của tôi' // Tên lớp lấy từ route.params
+    },
+  ];
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.breadcrumb}>
-        {/* Icon Home */}
-
-        <TouchableOpacity
-          style={styles.breadcrumbItem}
-          onPress={navigation.goBack}>
-          <MaterialCommunityIcons
-            name="home"
-            size={18}
-            color="#3D3D3D"
-            style={styles.icon}
-          />
-          <Text style={styles.breadcrumbText}>Trang chủ</Text>
-        </TouchableOpacity>
-
-        {/* Chevron + Thông báo */}
-        <MaterialCommunityIcons
-          name="chevron-right"
-          size={18}
-          color="#3D3D3D"
-        />
-        <Text style={styles.breadcrumbText}>Lớp học của tôi</Text>
-      </View>
-      <View style={styles.separator} />
+      <Breadcrumb
+        navigation={navigation}
+        route={route}
+        breadcrumbs={breadcrumbs}
+      />
 
       {courses.map(course => (
         <CourseCard
@@ -92,7 +75,7 @@ const ClassScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
+    padding: 16,
     backgroundColor: '#f5f5f5',
     flex: 1,
   },
@@ -113,11 +96,6 @@ const styles = StyleSheet.create({
     color: '#3D3D3D',
     fontWeight: '400',
     fontFamily: 'Roboto-Regular',
-  },
-  separator: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    marginBottom: 15,
   },
 });
 

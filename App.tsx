@@ -2,12 +2,14 @@
 import React from 'react';
 import AppNavigator from './src/navigation/MainNavigator'; // Điều hướng chính
 import {NavigationContainer} from '@react-navigation/native';
-
+import {TabProvider} from './src/navigation/TabContext';
 const App = () => {
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <TabProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </TabProvider>
   );
 };
 

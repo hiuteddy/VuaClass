@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   FlatList,
+  Text,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'; // Import icon từ thư viện
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width } = Dimensions.get('window');
 
-const SearchWithDropdown = ({ categories, onCategorySelect, onSearch }) => {
+const SearchWithDropdown = ({
+  categories,
+  onCategorySelect,
+  onSearch,
+  placeholder = 'Nhập tìm kiếm',
+  searchIconColor = '#333',
+  onFilterPress, // Callback khi nhấn vào icon lọc
+}) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!isDropdownVisible);
-  };
+  const toggleDropdown = () => setDropdownVisible(!isDropdownVisible);
 
   const renderCategoryItem = ({ item }) => (
     <TouchableOpacity
       style={styles.categoryItem}
       onPress={() => {
         onCategorySelect(item);
-        setDropdownVisible(false); // Đóng dropdown sau khi chọn
+        setDropdownVisible(false);
       }}
     >
       <Text style={styles.categoryItemText}>{item}</Text>
@@ -34,34 +39,43 @@ const SearchWithDropdown = ({ categories, onCategorySelect, onSearch }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBar}>
-        {/* Dropdown Button */}
-        <TouchableOpacity onPress={toggleDropdown} style={styles.dropdownButton}>
-          <Text style={styles.dropdownButtonText}>Danh mục</Text>
-          <MaterialCommunityIcons
-            name={isDropdownVisible ? 'chevron-up' : 'chevron-down'} 
-            size={20}
-            color="'#777777"
+      <View style={styles.searchBarContainer}>
+        <View style={styles.searchBar}>
+          {/* Dropdown Button */}
+          <TouchableOpacity onPress={toggleDropdown} style={styles.dropdownButton}>
+            <Text style={styles.dropdownButtonText}>Danh mục</Text>
+            <MaterialCommunityIcons
+              name={isDropdownVisible ? 'chevron-up' : 'chevron-down'}
+              size={20}
+              color="#777"
+            />
+          </TouchableOpacity>
+
+          {/* Vertical Divider */}
+          <View style={styles.verticalDivider} />
+
+          {/* Search Input */}
+          <TextInput
+            style={styles.searchInput}
+            placeholder={placeholder}
+            value={searchText}
+            onChangeText={(text) => {
+              setSearchText(text);
+              if (onSearch) onSearch(text);
+            }}
           />
-        </TouchableOpacity>
 
-        {/* Vertical Divider */}
-        <View style={styles.verticalDivider} />
+          {/* Search Icon */}
+          <TouchableOpacity>
+            <MaterialCommunityIcons name="magnify" size={20} color={searchIconColor} />
+          </TouchableOpacity>
+        </View>
 
-        {/* Search Input */}
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Nhập tìm kiếm"
-          value={searchText}
-          onChangeText={(text) => {
-            setSearchText(text);
-            if (onSearch) onSearch(text);
-          }}
-        />
-
-        {/* Search Icon */}
-        <TouchableOpacity>
-          <MaterialCommunityIcons name="magnify" size={20} color="#333" /> 
+        {/* Filter Icon */}
+        <TouchableOpacity onPress={onFilterPress} style={styles.filterIconContainer}>
+          <View style={styles.filterIcon}>
+          <MaterialCommunityIcons name="tune" size={24} color="#fff" />
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -81,7 +95,12 @@ const SearchWithDropdown = ({ categories, onCategorySelect, onSearch }) => {
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 10, 
+    zIndex: 10,
+  },
+  searchBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Giữ khoảng cách giữa ô input và icon lọc
   },
   searchBar: {
     flexDirection: 'row',
@@ -92,7 +111,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
     borderColor: '#ddd',
-    marginTop: 15,
+    flex: 1,
   },
   dropdownButton: {
     flexDirection: 'row',
@@ -101,7 +120,7 @@ const styles = StyleSheet.create({
   dropdownButtonText: {
     fontSize: 14,
     marginRight: 4,
-    color:'#777777'
+    color: '#777',
   },
   verticalDivider: {
     width: 1,
@@ -114,11 +133,21 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingHorizontal: 10,
   },
+  filterIconContainer: {
+    marginLeft: 15, // Khoảng cách giữa ô input và icon lọc
+    width: 40, // Đảm bảo icon lọc có chiều rộng bằng với ô input
+    height: 40, // Giữ chiều cao bằng với ô input
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filterIcon: {
+    backgroundColor: '#034567', // Background xanh cho icon lọc
+    borderRadius: 8,
+    padding: 7,
+  },
   dropdown: {
     position: 'absolute',
-    top: 50, // Đẩy dropdown xuống dưới thanh tìm kiếm
-    left: 16,
-    width: width - 32,
+    top: 40,
     backgroundColor: '#fff',
     borderRadius: 8,
     borderWidth: 1,

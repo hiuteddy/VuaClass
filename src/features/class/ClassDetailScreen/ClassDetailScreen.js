@@ -3,12 +3,23 @@ import {View, TouchableOpacity, Text, StyleSheet, FlatList} from 'react-native';
 import ClassDescription from '../components/ClassDescription';
 import MembersList from '../components/MembersList';
 import UnitList from '../components/UnitList';
-import {useNavigation} from '@react-navigation/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
-const ClassDetailScreen = () => {
+const ClassDetailScreen = ({navigation, route}) => {
   const [activeTab, setActiveTab] = useState('Tiến trình');
-  const navigation = useNavigation();
+
+  const classTitle = route.params?.title || 'loading...';
+  const breadcrumbs = [
+    {
+      icon: 'home',
+    },
+    {
+      name:'...', // Tên lớp lấy từ route.params
+    },
+    {
+      name: classTitle, // Tên lớp lấy từ route.params
+    },
+  ];
 
   // Dữ liệu lớp học
   const classData = {
@@ -42,7 +53,6 @@ const ClassDetailScreen = () => {
       documentCount: 3,
     },
   ];
-  
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -59,43 +69,12 @@ const ClassDetailScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Breadcrumb
+        navigation={navigation}
+        route={route}
+        breadcrumbs={breadcrumbs}
+      />
 
-
-
-
-      <View style={styles.breadcrumb}>
-        {/* Icon Home */}
-
-        <TouchableOpacity
-          style={styles.breadcrumbItem}
-          onPress={navigation.goBack}>
-          <MaterialCommunityIcons
-            name="home"
-            size={18}
-            color="#3D3D3D"
-            style={styles.icon}
-          />
-          <Text style={styles.breadcrumbText}>Trang chủ</Text>
-        </TouchableOpacity>
-
-        {/* Chevron + Thông báo */}
-        <MaterialCommunityIcons
-          name="chevron-right"
-          size={18}
-          color="#3D3D3D"
-        />
-        <Text style={styles.breadcrumbText}>Lớp học</Text>
-
-        {/* Chevron + Thông báo hệ thống */}
-        <MaterialCommunityIcons
-          name="chevron-right"
-          size={18}
-          color="#3D3D3D"
-        />
-              <Text style={styles.breadcrumbText}>Lớp A300 Ielts tháng 10 - 2022</Text>
-
-      </View>
-      <View style={styles.separator} />
       <Text style={styles.title}>Lớp A300 Ielts tháng 10 - 2022</Text>
 
       {/* Tab Header */}
@@ -134,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingHorizontal: 15,
+    padding: 16,
   },
   breadcrumb: {
     flexDirection: 'row',

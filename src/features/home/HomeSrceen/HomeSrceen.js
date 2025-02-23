@@ -139,11 +139,13 @@ const documentsData = [
   },
 ];
 
+
 const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <Banner />
       <Menu data={menu} />
+
 
       {/* In ra dữ liệu để kiểm tra */}
 
@@ -152,12 +154,15 @@ const HomeScreen = ({navigation}) => {
         title={'Đề thi Ielts nổi bật'}
         data={mockData} // Truyền dữ liệu đúng
         horizontal={true}
+        navigateToAll={'AllExamSrceen'} // Màn hình khi nhấn Tất Cả cho card này
+
       />
       <FeaturedCard
         navigation={navigation}
         title={'Đề thi Ielts nổi bật'}
         data={mockData1} // Truyền dữ liệu đúng
         horizontal={true}
+
       />
       <Documents
         navigation={navigation}
